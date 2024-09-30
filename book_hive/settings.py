@@ -38,8 +38,8 @@ SECRET_KEY = "django-insecure-#j2_j+7wt@p6mqt=3=c405=(acn#0#e7ao9%4mgmqelf@vl4tz
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['book-hive-l5t7.onrender.com','127.0.0.1', 'localhost']
-CSRF_TRUSTED_ORIGINS = ['https://librario-7dkz.onrender.com', 'http://*.127.0.0.1']
+ALLOWED_HOSTS = ['https://book-hive-f1z4.onrender.com','127.0.0.1', 'localhost']
+CSRF_TRUSTED_ORIGINS = ['https://book-hive-f1z4.onrender.com', 'http://*.127.0.0.1']
 
 
 # Application definition
