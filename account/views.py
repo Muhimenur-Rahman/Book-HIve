@@ -20,6 +20,15 @@ from django.template.loader import render_to_string
 
 # Create your views here.
 
+def send_transaction_email(user, amount, subject, template):
+        message = render_to_string(template, {
+            'user' : user,
+            'amount' : amount,
+        })
+        send_email = EmailMultiAlternatives(subject, '', to=[user.email])
+        send_email.attach_alternative(message, "text/html")
+        send_email.send()
+
 class user_registration_view(FormView):
     template_name = 'user_registration.html'
     success_url = reverse_lazy('login')
@@ -109,15 +118,7 @@ def deposit_money(request):
             user_account_instance.balance += amount  # Update the balance
             user_account_instance.save()  # Save the updated balance
             messages.success(request, f'Deposited {amount} successfully!')
-            mail_subject = "Deposite Message"
-            message = render_to_string('deposit_email.html',{
-                'user' : request.user,
-                'amount' : amount
-            })
-            to_mail = request.user.email
-            send_email = EmailMultiAlternatives(mail_subject,'',to=[to_mail])
-            send_email.attach_alternative(message,"text/html")
-            send_email.send()
+            send_transaction_email(request.user, amount, "Deposit Message", "deposit_email.html")   
             return redirect('account')  # Redirect to profile or desired page
     else:
         form = forms.deposit_form()
